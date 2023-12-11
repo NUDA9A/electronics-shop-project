@@ -50,3 +50,19 @@ def test_name_getter(item, expected):
 def test_name_getter(item, new_name, expected):
     item.name = new_name
     assert item.name == expected
+
+
+@pytest.mark.parametrize('item, expected', [
+    (Item.all[0], "Item('Телевизор', 40000, 100)"),
+    (Item.all[1], "Item('Ноутбук', 60000, 250)")
+])
+def test_repr(item, expected):
+    assert repr(item) == expected
+
+
+@pytest.mark.parametrize('item, expected', [
+    (Item.all[0], 'Телевизор'),
+    (Item.all[1], 'Ноутбук')
+])
+def test_str(item, expected):
+    assert str(item) == expected
