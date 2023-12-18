@@ -59,6 +59,11 @@ class Item:
             for row in reader:
                 cls(row['name'], row['price'], row['quantity'])
 
+    def __add__(self, other):
+        if not isinstance(other, Item):
+            assert BaseException
+        return self.quantity + other.quantity
+
     @staticmethod
     def string_to_number(s):
         return int(float(s))

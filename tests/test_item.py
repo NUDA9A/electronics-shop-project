@@ -66,3 +66,11 @@ def test_repr(item, expected):
 ])
 def test_str(item, expected):
     assert str(item) == expected
+
+
+@pytest.mark.parametrize('item, other, expected', [
+    (Item("Телевизор", 50_000, 100), Item("Телевизор", 50_000, 140), 240),
+    (Item("Телевизор", 50_000, 153), Item("Телевизор", 50_000, 534), 687)
+])
+def test_add(item, other, expected):
+    assert item + other == expected
