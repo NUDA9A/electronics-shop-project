@@ -61,7 +61,7 @@ class Item:
 
     def __add__(self, other):
         if not isinstance(other, Item):
-            assert BaseException
+            raise TypeError(f'Нельзя складывать {type(self)} и {type(other)}')
         return self.quantity + other.quantity
 
     @staticmethod
