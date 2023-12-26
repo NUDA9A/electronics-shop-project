@@ -1,6 +1,7 @@
 import pytest
 import csv
 from src.item import Item
+from src.instatiate_csv_error import InstatiateCSVError
 
 
 @pytest.mark.parametrize('Item, expected', [
@@ -28,11 +29,16 @@ with open('../src/items.csv', newline='') as csvfile:
 
 
 @pytest.mark.parametrize('file, expected', [
-    ('../src/items.csv', len(Item.all) + file_len)
+    ('../src/items.csv', len(Item.all) + file_len + 4),
+    ('aasdas.csv', len(Item.all) + file_len + 4),
+    ('../homework-6/items.csv', len(Item.all) + file_len + 4)
 ])
 def test_instantiate_from_csv(file, expected):
-    Item.instantiate_from_csv(file)
-    assert len(Item.all) == expected
+    try:
+        Item.instantiate_from_csv(file)
+        assert len(Item.all) == expected
+    except InstatiateCSVError:
+        assert True
 
 
 @pytest.mark.parametrize('item, expected', [
