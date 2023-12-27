@@ -29,16 +29,21 @@ with open('../src/items.csv', newline='') as csvfile:
 
 
 @pytest.mark.parametrize('file, expected', [
-    ('../src/items.csv', len(Item.all) + file_len + 4),
-    ('aasdas.csv', len(Item.all) + file_len + 4),
-    ('../homework-6/items.csv', len(Item.all) + file_len + 4)
+    ('../src/items.csv', len(Item.all) + file_len + 4)
 ])
 def test_instantiate_from_csv(file, expected):
-    try:
-        Item.instantiate_from_csv(file)
-        assert len(Item.all) == expected
-    except InstatiateCSVError:
-        assert True
+    Item.instantiate_from_csv(file)
+    assert len(Item.all) == expected
+
+
+@pytest.mark.xfail(raises=InstatiateCSVError)
+def test_csv_error():
+    Item.instantiate_from_csv('../homework-6/items.csv')
+
+
+@pytest.mark.xfail(raises=FileNotFoundError)
+def test_file_not_found_error():
+    Item.instantiate_from_csv('asdasd.csv')
 
 
 @pytest.mark.parametrize('item, expected', [
